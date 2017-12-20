@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Registration / Login </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'hangman_app/css/index.css'%}">
+</head>
+<body>
+    <h1> Welcome to Hangman </h1> 
+    <h2> Please log in or register below </h2>
+    <form action='/user/registration' method='POST'>
+        <h1> Registration </h1>
+        <label for="first_name"> First Name: </label>
+        <input type="text" name="first_name">
+        <label for="last_name"> Last Name: </label>
+        <input type="text" name="last_name">
+        <label for="alias"> Alias: </label>
+        <input type="text" name="alias">
+        <label for="email"> Email: </label>
+        <input type="text" name="email">
+        <p> Password must be 8 characters long </p>
+        <label for="password"> Password: </label>
+        <input type="password" name="password">
+        <label for="passwordcf"> Confirm password: </label>
+        <input type="password" name="passwordcf">
+        <button> Register </button>
+    </form>
+    <form action='/user/login' method='POST'>
+        <h1> Login </h1>
+        <label for="email"> Email: </label>
+        <input type="text" name="email">
+        <label for="password"> Password: </label>
+        <input type="password" name="password">
+        <button> Login </button> 
+    </form>
+</body>
+</html>
