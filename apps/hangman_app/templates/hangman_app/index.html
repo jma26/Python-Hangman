@@ -9,6 +9,7 @@
     <h1> Welcome to Hangman </h1> 
     <h2> Please log in or register below </h2>
     <form action='/user/registration' method='POST'>
+        {% csrf_token %}
         <h1> Registration </h1>
         <label for="first_name"> First Name: </label>
         <input type="text" name="first_name">
@@ -26,6 +27,7 @@
         <button> Register </button>
     </form>
     <form action='/user/login' method='POST'>
+        {% csrf_token %}
         <h1> Login </h1>
         <label for="email"> Email: </label>
         <input type="text" name="email">
@@ -33,5 +35,13 @@
         <input type="password" name="password">
         <button> Login </button> 
     </form>
+    {% if messages %}
+        <ul> 
+        {% for message in messages %}
+            <li> {{ message }}  </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    
 </body>
 </html>

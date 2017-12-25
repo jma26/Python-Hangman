@@ -1,0 +1,22 @@
+IDEAS
+
+1) Alias/name href route for profile information to display
+    a) name
+    b) email
+    c) Number of words user has added to database
+    d) All the words user has added
+
+2) Start game will render the game page
+    a) current status of hangman
+    b) Each wrong guess will render a different hangman addition until leg, arms done
+    c) Button to play again or go back to hangman home page
+
+3) Game functionality
+    a) random id/# to retrieve word from database
+    b) loop to display number of dashes?
+    c) keybinding? input/submission? 26-alphabet characters display on webpage?
+    d) Display which words have been pressed
+
+index.html for login/registration 
+game.html as home page for hangman game ### may change to home.html ###
+**** game.html **** for actual game
