@@ -52,6 +52,12 @@ def reroute(request):
 
 ###################################################################
 
+###################################################################
+
+#Beginning of hangman home page 
+
+###################################################################
+
 def hangman(request):
     user = User.objects.get(id = request.session['user_id'])
     context = {
@@ -70,7 +76,6 @@ def new_word(request, user_id):
         user = User.objects.get(id = user_id)
         Word.objects.create(word = request.POST['new_word'], user = user, hint = request.POST['hint'])
         messages.success(request, "New word successfully added")
-        print "Hello World"
         return redirect('/hangman/home')
 
 def user_info(request, user_id):
@@ -88,3 +93,22 @@ def user_info(request, user_id):
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+###################################################################
+
+#End of hangman home page
+
+###################################################################
+
+def game(request):
+    word = Word.objects.random_word(request.POST)
+    context = {
+        'word': word
+    }
+    return render(request, 'hangman_app/game.html', context)
+
+###################################################################
+
+#Game Functionality
+
+###################################################################

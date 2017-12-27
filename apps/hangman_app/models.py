@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 import re
 import bcrypt
+import random
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
@@ -69,6 +70,14 @@ class WordManager(models.Manager):
             errors.append("Hint can't be empty")
         
         return errors
+    
+    def random_word(self, postData):
+        length_word_database = len(Word.objects.all())
+        word_id = random.randint(1, length_word_database)
+
+        word = Word.objects.get(id = word_id)
+        print word_id
+        return word
 
 
 class User(models.Model):

@@ -18,10 +18,8 @@
         <button> Add new word </button>
     </form>
 
-
-
-
-    <form>
+    <form action='/hangman/game' method='GET'>
+        {% csrf_token %}
         <button> Start Game </button>
     </form>
     {% if messages %}
