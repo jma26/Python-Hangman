@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Hangman: User info</title>
+</head>
+<body>
+    <h1> User Information </h1> 
+    <p> <a href='/hangman/home'> Go back </a></p>
+    <h3> {{ user.first_name }} {{ user.last_name }} </h3>
+    <h3> Total words contributed: {{ word_count }} </h3> 
+    <h3> Words submitted </h3>
+    {% for word in words %}
+        <ul>
+            <li> {{ word.word }} : {{ word.hint}} </li>
+        </ul>
+    {% endfor %}
+</body>
+</html>

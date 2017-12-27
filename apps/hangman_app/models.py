@@ -56,7 +56,20 @@ class UserManager(models.Manager):
         hash1 = bcrypt.hashpw(postData['password'].encode(), bcrypt.gensalt())
         print hash1
 
-        return User.objects.create(first_name = postData['first_name'], last_name = postData['last_name'], email = postData['email'], password = hash2)
+        return User.objects.create(first_name = postData['first_name'], last_name = postData['last_name'], email = postData['email'], password = hash1, alias = postData['alias'])
+
+class WordManager(models.Manager):
+
+    def new_word_validation(self, postData):
+        errors = []
+        if len(postData['new_word']) <= 0:
+            errors.append("New word can't be empty")
+        
+        if len(postData['hint']) <= 0:
+            errors.append("Hint can't be empty")
+        
+        return errors
+
 
 class User(models.Model):
     first_name = models.CharField(max_length = 255)
@@ -64,5 +77,10 @@ class User(models.Model):
     alias = models.CharField(max_length = 255)
     email = models.CharField(max_length = 255)
     password = models.CharField(max_length = 255)
-
     objects = UserManager()
+
+class Word(models.Model):
+    word = models.CharField(max_length = 20)
+    user = models.ForeignKey(User, related_name = 'submitted_by')
+    hint = models.CharField(max_length = 255)
+    objects = WordManager()

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Hangman: The Game </title>
+</head>
+<body>
+    <div id="navbar">
+        <h3> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
+        <p> <a href="/logout"> Logout </a> </p> 
+    </div>
+    <h1> Hangman: The Game </h1>
+    <form action='/hangman/new_word/{{ user.id }}' method='POST'>
+        {% csrf_token %}
+        <label for="new_word"> Add a new word: </label>
+        <input type="text" name="new_word">
+        <label for="hint"> Hint: </label> 
+        <input type="text" name="hint">
+        <button> Add new word </button>
+    </form>
+
+
+
+
+    <form>
+        <button> Start Game </button>
+    </form>
+    {% if messages %}
+        <ul> 
+        {% for message in messages %}
+            <li> {{ message }}  </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</html>

@@ -40,7 +40,7 @@ def login(request):
 def reroute(request):
     try:
         request.session['user_id']
-        return redirect('/hangman')
+        return redirect('/hangman/home')
     
     except:
         return redirect('/')
@@ -57,4 +57,34 @@ def hangman(request):
     context = {
         'user': user
     }
-    return render(request, 'hangman_app/game.html', context)
+    return render(request, 'hangman_app/home.html', context)
+
+def new_word(request, user_id):
+    errors = Word.objects.new_word_validation(request.POST)
+    if errors:
+        for error in errors:
+            messages.error(request, error)
+        return redirect('/hangman/home')
+    
+    else:
+        user = User.objects.get(id = user_id)
+        Word.objects.create(word = request.POST['new_word'], user = user, hint = request.POST['hint'])
+        messages.success(request, "New word successfully added")
+        print "Hello World"
+        return redirect('/hangman/home')
+
+def user_info(request, user_id):
+    user = User.objects.get(id = user_id)
+    word_count = User.objects.get(id = user_id).submitted_by.count()
+    words = Word.objects.filter(user = user)
+    
+    context = {
+        'user': user,
+        'word_count': word_count,
+        'words': words
+    }
+    return render(request, 'hangman_app/user_info.html', context)
+
+def logout(request):
+    request.session.clear()
+    return redirect('/')
