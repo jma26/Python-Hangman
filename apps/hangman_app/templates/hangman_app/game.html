@@ -6,37 +6,15 @@
 <body>
     <h1> Hangman- Don't die! </h1>
     <div id="word">
-        <h1> {{ word.word }} </h1>
-        <h2> Hint: {{ word.hint }} </h2>
+        <h1> {{ request.session.blanks }} </h1>
+        <h2> Hint: {{ request.session.hint }} </h2>
     </div>
     <P> <a href="/hangman/home"> Go back </a></P>
-    <form>
-        <a href="#"> A </a>
-        <a href="#"> B </a>
-        <a href="#"> C </a>
-        <a href="#"> D </a>
-        <a href="#"> E </a>
-        <a href="#"> F </a>
-        <a href="#"> G </a>
-        <a href="#"> H </a>
-        <a href="#"> I </a>
-        <a href="#"> J </a>
-        <a href="#"> K </a>
-        <a href="#"> L </a>
-        <a href="#"> M </a>
-        <a href="#"> N </a>
-        <a href="#"> O </a>
-        <a href="#"> P </a>
-        <a href="#"> Q </a>
-        <a href="#"> R </a>
-        <a href="#"> S </a>
-        <a href="#"> T </a>
-        <a href="#"> U </a>
-        <a href="#"> V </a>
-        <a href="#"> W </a>
-        <a href="#"> X </a>
-        <a href="#"> Y </a>
-        <a href="#"> Z </a>
+    <form action='/hangman/game/guess' method='POST'>
+        {% csrf_token %}
+        <label for="user_guess"> Guess a letter! </label>
+        <input type="text" name="user_guess">
+        <button> Submit guess </button>
     </form>
 </body>
 </html>

@@ -102,10 +102,39 @@ def logout(request):
 
 def game(request):
     word = Word.objects.random_word(request.POST)
+    request.session['word'] = word.word
+    request.session['blanks'] = []
+    request.session['blanks_index'] = []
+    request.session['hint'] = word.hint
+    unicode_blanks = '_' * len(request.session['word'])
+
+    blanks = str(" ".join(unicode_blanks)) # str() removes 'u unicode
+    
+    request.session['blanks'].append(blanks)
+
+    print request.session['blanks']
     context = {
         'word': word
     }
     return render(request, 'hangman_app/game.html', context)
+
+def guess(request):
+    unicode_blanks = '_' * len(request.session['word'])
+    guess = request.POST['user_guess']
+    blanks = str("".join(unicode_blanks))
+    index = str("".join(request.session['word']))
+
+    blanks1 = list(blanks)
+    index1 = list(index) ## list allows us to iterate
+
+    if guess in request.session['word']: #If the guess is in the word
+        for index, letter in enumerate(index1): # Split it into a tuple
+
+            if guess == letter: # if the guess is the letter of the tuple
+                blanks1[index] = guess # we assign the guess letter to the index
+            print blanks1
+        
+    return render(request, 'hangman_app/game.html')
 
 ###################################################################
 
