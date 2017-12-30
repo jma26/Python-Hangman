@@ -8,6 +8,7 @@
     <div id="word">
         <h1> {{ request.session.blanks }} </h1>
         <h2> Hint: {{ request.session.hint }} </h2>
+        <h2> Words guessed: {{ request.session.guess_container }} </h2>
     </div>
     <P> <a href="/hangman/home"> Go back </a></P>
     <form action='/hangman/game/guess' method='POST'>
@@ -16,5 +17,12 @@
         <input type="text" name="user_guess">
         <button> Submit guess </button>
     </form>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li> {{ message }} </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

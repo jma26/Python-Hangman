@@ -103,36 +103,54 @@ def logout(request):
 def game(request):
     word = Word.objects.random_word(request.POST)
     request.session['word'] = word.word
-    request.session['blanks'] = []
-    request.session['blanks_index'] = []
     request.session['hint'] = word.hint
-    unicode_blanks = '_' * len(request.session['word'])
-
-    blanks = str(" ".join(unicode_blanks)) # str() removes 'u unicode
+    request.session['counter'] = 0
+    request.session['guess_container'] = []
+    blanks = '_' * len(request.session['word'])
     
-    request.session['blanks'].append(blanks)
+    request.session['blanks'] = ' '.join(blanks) ##Creates the spacing between each underscore
 
-    print request.session['blanks']
     context = {
-        'word': word
+        'word': word,
     }
     return render(request, 'hangman_app/game.html', context)
 
 def guess(request):
-    unicode_blanks = '_' * len(request.session['word'])
+    blanks = request.session['blanks']
     guess = request.POST['user_guess']
-    blanks = str("".join(unicode_blanks))
-    index = str("".join(request.session['word']))
 
-    blanks1 = list(blanks)
-    index1 = list(index) ## list allows us to iterate
+    blanks = "".join(str(word) for word in blanks)
+
+    print blanks
+
+    blanks = list(blanks) ## list to make the contents iterable 
+    print blanks
+    blanks = map(str, blanks) ##removes 'u unicode from list(blanks)
+    print blanks
+
 
     if guess in request.session['word']: #If the guess is in the word
-        for index, letter in enumerate(index1): # Split it into a tuple
 
-            if guess == letter: # if the guess is the letter of the tuple
-                blanks1[index] = guess # we assign the guess letter to the index
-            print blanks1
+        if guess not in request.session['guess_container']: ## Check if the guessed letter is already used, if not proceed
+            request.session['guess_container'].append(guess)
+            for index, letter in enumerate(request.session['word']): # Split it into a tuple
+
+                if guess == letter: # if the guess is the letter of the tuple
+                    blanks[index] = str(letter) ## index to location position of blanks
+                    request.session['blanks'] = ''.join(blanks)
+                    print request.session['blanks']
+                    return render(request, 'hangman_app/game.html') 
+    
+        else:
+            messages.error(request, "You've already guessed that letter, please try again")
+            return render(request, 'hangman_app/game.html')
+    
+    else:
+        request.session['counter'] += 1
+        request.session['guess_container'].append(guess)
+        messages.error(request, "NOT FOUND! Ouch, one step closer to X_X")
+        return render(request, 'hangman_app/game.html')
+        
         
     return render(request, 'hangman_app/game.html')
 
