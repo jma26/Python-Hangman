@@ -102,13 +102,15 @@ def logout(request):
 
 def game(request):
     word = Word.objects.random_word(request.POST)
-    request.session['word'] = word.word
+    request.session['word'] = word.word.lower()
     request.session['hint'] = word.hint
     request.session['counter'] = 0
     request.session['guess_container'] = []
     blanks = '_' * len(request.session['word'])
     
-    request.session['blanks'] = ' '.join(blanks) ##Creates the spacing between each underscore
+    request.session['blanks'] = blanks
+    print blanks
+    # ''.join(blanks) ##Creates the spacing between each underscore --- UPDATE: This is the root cause of the spacing problem, empty space is counted as a list index
 
     context = {
         'word': word,
@@ -117,42 +119,40 @@ def game(request):
 
 def guess(request):
     blanks = request.session['blanks']
-    guess = request.POST['user_guess']
-
-    blanks = "".join(str(word) for word in blanks)
-
-    print blanks
+    guess = request.POST['user_guess'].lower()
+    hidden_word = request.session['word']
+    guess_container = []
 
     blanks = list(blanks) ## list to make the contents iterable 
     print blanks
-    blanks = map(str, blanks) ##removes 'u unicode from list(blanks)
-    print blanks
 
+    if len(guess) <= 0:  ## CONDITION: returns an error message if no input given
+        messages.error(request, "No guess given, please take a guess")
+        return render(request, 'hangman_app/game.html')
 
-    if guess in request.session['word']: #If the guess is in the word
+    if guess in hidden_word and guess not in request.session['guess_container']: #If the guess is in the word and check if the guessed letter is already used - if not proceed
+        guess_container.append(guess)
+        guess_container = map(str, guess)
+        request.session['guess_container'] = guess_container ## update guess container so it can not be guessed again
 
-        if guess not in request.session['guess_container']: ## Check if the guessed letter is already used, if not proceed
-            request.session['guess_container'].append(guess)
-            for index, letter in enumerate(request.session['word']): # Split it into a tuple
+        for index, letter in enumerate(hidden_word): # Split it into a tuple
 
-                if guess == letter: # if the guess is the letter of the tuple
-                    blanks[index] = str(letter) ## index to location position of blanks
-                    request.session['blanks'] = ''.join(blanks)
-                    print request.session['blanks']
-                    return render(request, 'hangman_app/game.html') 
-    
-        else:
-            messages.error(request, "You've already guessed that letter, please try again")
-            return render(request, 'hangman_app/game.html')
+            if hidden_word[index] == guess: # if the guess is the letter of the tuple
+                blanks[index] = str(guess) ## index to location position of blanks
+                print blanks
+                request.session['blanks'] = ''.join(blanks)  # removes 'u unicode for display purposes
+                print request.session['blanks']
+        return render(request, 'hangman_app/game.html')
+
+    elif guess in request.session['guess_container']:
+        messages.error(request, "You've already guessed that letter, please try again")
+        return render(request, 'hangman_app/game.html')
     
     else:
         request.session['counter'] += 1
         request.session['guess_container'].append(guess)
         messages.error(request, "NOT FOUND! Ouch, one step closer to X_X")
         return render(request, 'hangman_app/game.html')
-        
-        
-    return render(request, 'hangman_app/game.html')
 
 ###################################################################
 
