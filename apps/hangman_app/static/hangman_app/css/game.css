@@ -1,0 +1,9 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#hangman_art h1 {
+    font-family: monospace;
+    white-space: pre;
+}

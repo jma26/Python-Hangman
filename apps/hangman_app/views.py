@@ -104,53 +104,187 @@ def game(request):
     word = Word.objects.random_word(request.POST)
     request.session['word'] = word.word.lower()
     request.session['hint'] = word.hint
-    request.session['counter'] = 0
+    request.session['word_length'] = len(word.word)
+    request.session['counter'] = 6
     request.session['guess_container'] = []
     blanks = '_' * len(request.session['word'])
     
     request.session['blanks'] = blanks
-    print blanks
     # ''.join(blanks) ##Creates the spacing between each underscore --- UPDATE: This is the root cause of the spacing problem, empty space is counted as a list index
 
+    hangman_art = [
+        ''' 
+        +---+
+        |   |
+            |
+            |
+            |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+            |
+            |
+    ========== ''',
+
+        '''
+        +---+
+        |   |
+        O   |
+        |   |
+            |
+    ========== ''',
+
+        '''
+        +---+
+        |   |
+        O   |
+       /|   |
+            |
+    ========== ''',
+
+        '''
+        +---+
+        |   |
+        O   |
+       /|\  |
+        |
+    ========== ''',
+
+        '''
+        +---+
+        |   |
+        O   |
+       /|\  |
+       /    |
+    ========== ''',
+
+        '''
+        +---+
+        |   |
+        O   |      You're dead :(
+       /|\  |
+       / \  |
+    ========== '''
+    ]
+
+    request.session['art'] = hangman_art[0]
+        
     context = {
         'word': word,
     }
+
     return render(request, 'hangman_app/game.html', context)
 
 def guess(request):
     blanks = request.session['blanks']
     guess = request.POST['user_guess'].lower()
-    hidden_word = request.session['word']
-    guess_container = []
+    hidden_word = request.session['word'].lower()
+    request.session['guess_container'] = list(request.session['guess_container'])
 
-    blanks = list(blanks) ## list to make the contents iterable 
-    print blanks
+    hangman_art = [
+        ''' 
+        +---+ <br>
+        |   |
+            |
+            |
+            | 
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+            |
+            |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+        |   |
+            |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+       /|   |
+            |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+       /|\  |
+        |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |
+       /|\  |
+       /    |
+    ========== ''',
+        '''
+        +---+
+        |   |
+        O   |      You're dead :(
+       /|\  |
+       / \  |
+    ========== '''
+    ]
+
+    blanks = list(blanks) ## list to make the contents iterable
 
     if len(guess) <= 0:  ## CONDITION: returns an error message if no input given
+        request.session['guess_container'] = ' '.join(request.session['guess_container'])
         messages.error(request, "No guess given, please take a guess")
+        return render(request, 'hangman_app/game.html')
+    
+    if not guess.isalpha():
+        request.session['guess_container'] = ' '.join(request.session['guess_container'])
+        messages.error(request, "Alphabetical letters only!")
         return render(request, 'hangman_app/game.html')
 
     if guess in hidden_word and guess not in request.session['guess_container']: #If the guess is in the word and check if the guessed letter is already used - if not proceed
-        guess_container.append(guess)
-        guess_container = map(str, guess)
-        request.session['guess_container'] = guess_container ## update guess container so it can not be guessed again
+        request.session['guess_container'].extend(guess)
+        request.session['guess_container'] = ' '.join(request.session['guess_container']) # update guess container so it can not be guessed again
 
         for index, letter in enumerate(hidden_word): # Split it into a tuple
 
             if hidden_word[index] == guess: # if the guess is the letter of the tuple
                 blanks[index] = str(guess) ## index to location position of blanks
-                print blanks
                 request.session['blanks'] = ''.join(blanks)  # removes 'u unicode for display purposes
-                print request.session['blanks']
+
+            elif request.session['blanks'] == request.session['word']:
+                messages.success(request, "Congratulations, you've won!")
+
         return render(request, 'hangman_app/game.html')
 
     elif guess in request.session['guess_container']:
         messages.error(request, "You've already guessed that letter, please try again")
+        request.session['guess_container'] = ' '.join(request.session['guess_container']) # removes 'u unicode for display purposes
         return render(request, 'hangman_app/game.html')
     
     else:
-        request.session['counter'] += 1
-        request.session['guess_container'].append(guess)
+        request.session['counter'] -= 1
+        request.session['guess_container'].extend(guess)
+        request.session['guess_container'] = ' '.join(request.session['guess_container'])
+
+        if request.session['counter'] == 5:
+            request.session['art'] = hangman_art[1]
+        elif request.session['counter'] == 4:
+            request.session['art'] = hangman_art[2]
+        elif request.session['counter'] == 3:
+            request.session['art'] = hangman_art[3]
+        elif request.session['counter'] == 2:
+            request.session['art'] = hangman_art[4]
+        elif request.session['counter'] == 1:
+            request.session['art'] = hangman_art[5]
+        elif request.session['counter'] == 0:
+            request.session['art'] = hangman_art[6]
+
         messages.error(request, "NOT FOUND! Ouch, one step closer to X_X")
         return render(request, 'hangman_app/game.html')
 
