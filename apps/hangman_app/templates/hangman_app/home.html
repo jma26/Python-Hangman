@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Hangman: The Game </title>
+    <title> Hangman: Home </title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'hangman_app/css/home.css' %}">
 </head>
 <body>
-    <div id="navbar">
+    <div id="navbar_container">
         <h3> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
-        <p> <a href="/logout"> Logout </a> </p> 
+        <h3> <a href="/logout"> Logout </a> </h3> 
     </div>
     <h1> Hangman: The Game </h1>
     <form action='/hangman/new_word/{{ user.id }}' method='POST'>

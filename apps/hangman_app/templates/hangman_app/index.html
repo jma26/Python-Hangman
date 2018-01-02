@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'hangman_app/css/index.css'%}">
 </head>
 <body>
-    <h1> Welcome to Hangman </h1> 
+    <h1 id="headline"> Welcome to Hangman </h1> 
     <h2 id="directions"> Please log in or register below </h2>
     <div class="flex_container">
         <div class="parent_container">
@@ -40,25 +40,30 @@
                 <button> Register </button>
             </form>
         </div>
-        <div class="parent_container">
+        <div class="parent_container parent_1">
             <form action='/user/login' method='POST'>
                 {% csrf_token %}
                 <h1> Login </h1>
-                <label for="email"> Email: </label>
-                <input type="text" name="email">
-                <label for="password"> Password: </label>
-                <input type="password" name="password">
+                <div class='item_containers'>
+                    <label for="email"> Email: </label>
+                    <input type="text" name="email">
+                </div>
+                <div class='item_containers'>
+                    <label for="password"> Password: </label>
+                    <input type="password" name="password">
+                </div>
                 <button> Login </button> 
             </form>
         </div>
     </div>
-    {% if messages %}
-        <ul> 
-        {% for message in messages %}
-            <li> {{ message }}  </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
-    
+    <div id="message_container">
+            {% if messages %}
+                <ul> 
+                {% for message in messages %}
+                    <li id='messages'> {{ message }}  </li>
+                {% endfor %}
+                </ul>
+            {% endif %}    
+            </div>
 </body>
 </html>

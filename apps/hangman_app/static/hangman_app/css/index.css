@@ -5,10 +5,18 @@
 
 #directions {
     text-align: center;
+    margin-bottom: 10px;
+}
+
+#headline {
+    margin-top: 10px;
+    margin-left: 5px;
 }
 
 .flex_container {
+    border: 1px solid green;
     display: flex;
+    flex-direction: column;
 }
 
 input {
@@ -27,6 +35,26 @@ label {
     display: flex;
     width: 300px;
     margin-bottom: 20px;
+}
+
+#messages {
+    color: red;
+    font-size: 20px;
+}
+
+#message_container {
+    width: 250px;
+    align-self: center;
+}
+
+.parent_container {
+    margin-top: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.parent_1 {
+    border-top: 2px solid gray;
 }
 
 

@@ -1,0 +1,13 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#navbar_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar_container h3 {
+    padding: 10px;
+}
