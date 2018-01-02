@@ -2,3 +2,32 @@
     margin: 0 auto;
     padding: 0 auto;
 }
+
+#directions {
+    text-align: center;
+}
+
+.flex_container {
+    display: flex;
+}
+
+input {
+    flex: 1;
+    margin-left: 20px;
+}
+
+label {
+    height: 21px;
+    line-height: 21px;
+    font-size: 14px;
+    flex: 0 1 auto;
+}
+
+.item_containers {
+    display: flex;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+
+

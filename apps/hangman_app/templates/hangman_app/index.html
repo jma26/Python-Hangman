@@ -7,34 +7,51 @@
 </head>
 <body>
     <h1> Welcome to Hangman </h1> 
-    <h2> Please log in or register below </h2>
-    <form action='/user/registration' method='POST'>
-        {% csrf_token %}
-        <h1> Registration </h1>
-        <label for="first_name"> First Name: </label>
-        <input type="text" name="first_name">
-        <label for="last_name"> Last Name: </label>
-        <input type="text" name="last_name">
-        <label for="alias"> Alias: </label>
-        <input type="text" name="alias">
-        <label for="email"> Email: </label>
-        <input type="text" name="email">
-        <p> Password must be 8 characters long </p>
-        <label for="password"> Password: </label>
-        <input type="password" name="password">
-        <label for="passwordcf"> Confirm password: </label>
-        <input type="password" name="passwordcf">
-        <button> Register </button>
-    </form>
-    <form action='/user/login' method='POST'>
-        {% csrf_token %}
-        <h1> Login </h1>
-        <label for="email"> Email: </label>
-        <input type="text" name="email">
-        <label for="password"> Password: </label>
-        <input type="password" name="password">
-        <button> Login </button> 
-    </form>
+    <h2 id="directions"> Please log in or register below </h2>
+    <div class="flex_container">
+        <div class="parent_container">
+            <form action='/user/registration' method='POST'>
+                {% csrf_token %}
+                <h1> Registration </h1>
+                <div class='item_containers'>
+                    <label for="first_name"> First Name: </label>
+                    <input type="text" name="first_name">
+                </div>
+                <div class='item_containers'>
+                    <label for="last_name"> Last Name: </label>
+                    <input type="text" name="last_name">
+                </div>
+               <div class='item_containers'>
+                    <label for="alias"> Alias: </label>
+                    <input type="text" name="alias">
+               </div>
+               <div class='item_containers'>
+                    <label for="email"> Email: </label>
+                    <input type="text" name="email">
+               </div>
+               <div class='item_containers'>
+                    <label for="password"> Password: </label>
+                    <input type="password" name="password">
+               </div>
+               <div class='item_containers'>
+                    <label for="passwordcf"> Confirm password: </label>
+                    <input type="password" name="passwordcf">       
+               </div>
+                <button> Register </button>
+            </form>
+        </div>
+        <div class="parent_container">
+            <form action='/user/login' method='POST'>
+                {% csrf_token %}
+                <h1> Login </h1>
+                <label for="email"> Email: </label>
+                <input type="text" name="email">
+                <label for="password"> Password: </label>
+                <input type="password" name="password">
+                <button> Login </button> 
+            </form>
+        </div>
+    </div>
     {% if messages %}
         <ul> 
         {% for message in messages %}

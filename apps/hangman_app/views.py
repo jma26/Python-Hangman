@@ -242,6 +242,11 @@ def guess(request):
         messages.error(request, "No guess given, please take a guess")
         return render(request, 'hangman_app/game.html')
     
+    if len(guess) > 1: ## CONDITION: returns an error message if user inputs more than 1
+        request.session['guess_container'] = ' '.join(request.session['guess_container'])
+        messages.error(request, "Only one character at a time, guess again")
+        return render(request, 'hangman_app/game.html')
+    
     if not guess.isalpha():
         request.session['guess_container'] = ' '.join(request.session['guess_container'])
         messages.error(request, "Alphabetical letters only!")
@@ -257,8 +262,8 @@ def guess(request):
                 blanks[index] = str(guess) ## index to location position of blanks
                 request.session['blanks'] = ''.join(blanks)  # removes 'u unicode for display purposes
 
-            elif request.session['blanks'] == request.session['word']:
-                messages.success(request, "Congratulations, you've won!")
+        if request.session['blanks'] == request.session['word']:
+            messages.success(request, "Congratulations, you've won!")
 
         return render(request, 'hangman_app/game.html')
 
