@@ -6,34 +6,41 @@
     <link rel='stylesheet' type='text/css' href='{% static "hangman_app/css/game.css" %}'>
 </head>
 <body>
-    <h1> Hangman- Don't die! </h1>
-    <div id="word">
-        <h1> {{ request.session.blanks }} </h1>
-        <h2> Hint: {{ request.session.hint }} </h2>
-        <h2> Words guessed: {{ request.session.guess_container }} </h2>
-        <h2> Tries left: {{ request.session.counter }} </h2>
-        <h2> Length of hidden word: {{ request.session.word_length }} </h2> 
-        <!-- <h2> # of human saves: {{ request.session.win_count }} </h2> -->
+    <div id='navbar_container'>
+        <h1 id='title'> Hangman- Don't die! </h1>
+        <div id='button_container'>
+            <p id='playagain_button'> <a href="/hangman/game"> Play again </a></p>
+            <p id='goback_button'> <a href="/hangman/home"> Go back </a></p>
+        </div>
     </div>
-    <p> <a href="/hangman/home"> Go back </a></p>
-    <p> <a href="/hangman/game"> Play again </a></p>
-    <form action='/hangman/game/guess' method='POST'>
-        {% csrf_token %}
-        <label for="user_guess"> Guess a letter! </label>
-        <input type="text" name="user_guess">
-        <button> Submit guess </button>
-    </form>
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li> {{ message }} </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    <div id="hangman_art">
-        <h1>
-            {{ request.session.art }} 
-        </h1>
+    <div class='flex_container'>
+        <div id='hangman_container'>
+            <h1> {{ request.session.blanks }} </h1>
+            <h2> Hint: {{ request.session.hint }} </h2>
+            <p> Length of hidden word: {{ request.session.word_length }} </p>
+            <p> Words guessed: {{ request.session.guess_container }} </p>
+            <form action='/hangman/game/guess' method='POST'>
+                {% csrf_token %}
+                <label for="user_guess"> Guess a letter! </label>
+                <input type="text" name="user_guess">
+                <button id='guess_button'> Submit guess </button>
+            </form>
+        </div>
+    </div>
+    <div class='flex_container'>
+        <div id='art_container'>
+            <h2 id='hangman_tries'> Tries left: {{ request.session.counter }} </h2>
+            <h1 id='hangman_art'> {{ request.session.art }} </h1>
+            {% if messages %}
+            <div id='message_container'>
+                <ul>
+                    {% for message in messages %}
+                    <li> {{ message }} </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -7,8 +7,8 @@
 </head>
 <body>
     <div id="navbar_container">
-        <h3> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
-        <h3> <a href="/logout"> Logout </a> </h3> 
+        <h3 id='welcome_sign'> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
+        <p id='logout'> <a href="/logout"> Logout </a> </p> 
     </div>
     <h1 id='title'> Hangman: The Game </h1>
     <div class='flex_container'>
@@ -28,7 +28,7 @@
             <div class='item_containers game_containerbutton'>
                 <form action='/hangman/game' method='GET'>
                     {% csrf_token %}
-                    <button> Start Game </button>
+                    <button id='game_button'> Start Game </button>
                 </form>
             </div>
         </div>

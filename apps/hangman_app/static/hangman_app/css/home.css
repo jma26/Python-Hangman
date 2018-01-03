@@ -8,16 +8,25 @@
     justify-content: space-between;
 }
 
-#navbar_container h3 {
+#welcome_sign, #logout {
     padding: 10px;
+}
+
+#welcome_sign {
+    font-size: 25px;
+}
+
+#logout {
+    font-size: 25px;
 }
 
 #title {
     text-align: center;
+    font-size: 50px;
 }
 
 .item_containers {
-    width: 700px;
+    width: 800px;
     margin-bottom: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +41,7 @@ input {
 label {
     height: 21px;
     line-height: 21px;
-    font-size: 14px;
+    font-size: 25px;
     flex: 0 1 auto;
     margin-left: 20px;
 }
@@ -45,15 +54,22 @@ label {
 button {
     padding: 10px;
     border-radius: 10px;
+    width: 200px;
 }
 
 #new_wordbutton {
     margin-left: 20px;
+    font-size: 25px;
+}
+
+#game_button {
+    font-size: 25px;
 }
 
 .parent_containers {
     display: flex;
     justify-content: center;
+    margin-top: 15px;
 }
 
 .game_containerbutton {

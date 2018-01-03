@@ -1,0 +1,42 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#headline, #go_backbutton {
+    padding: 10px;
+}
+
+#headline {
+    font-size: 50px;
+}
+.content_container {
+    display: flex;
+    flex-direction: column;
+}
+
+#name, #words, #go_backbutton, #total_words {
+    font-size: 25px;
+}
+
+#words_submitted, #total_words, #name {
+    margin-left: 20px;
+}
+
+#words_submitted {
+    font-size: 45px;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+#words {
+    margin-left: 30px;
+
+}

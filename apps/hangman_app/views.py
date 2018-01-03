@@ -100,17 +100,26 @@ def logout(request):
 
 ###################################################################
 
+###################################################################
+
+#Game Functionality
+
+###################################################################
+
 def game(request):
     word = Word.objects.random_word(request.POST)
     request.session['word'] = word.word.lower()
     request.session['hint'] = word.hint
     request.session['word_length'] = len(word.word)
     request.session['counter'] = 6
+
+    ## Resets guess_container each time new game is generated ##
     request.session['guess_container'] = []
+    ## ' '.join() to remove the square brackets in beginning of game, redundant- yes
+    request.session['guess_container'] = ' '.join(request.session['guess_container'])
     blanks = '_' * len(request.session['word'])
     
     request.session['blanks'] = blanks
-    # ''.join(blanks) ##Creates the spacing between each underscore --- UPDATE: This is the root cause of the spacing problem, empty space is counted as a list index
 
     hangman_art = [
         ''' 
@@ -181,6 +190,8 @@ def guess(request):
     blanks = request.session['blanks']
     guess = request.POST['user_guess'].lower()
     hidden_word = request.session['word'].lower()
+
+    ## Convert guess_container to list to iterate 
     request.session['guess_container'] = list(request.session['guess_container'])
 
     hangman_art = [
@@ -295,6 +306,6 @@ def guess(request):
 
 ###################################################################
 
-#Game Functionality
+# End of Game Functionality
 
 ###################################################################

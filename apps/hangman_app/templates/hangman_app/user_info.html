@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <title> Hangman: User info</title>
+    {% load static %}
+    <link rel='stylesheet' type='text/css' href="{% static 'hangman_app/css/user_info.css'%}">
 </head>
 <body>
-    <h1> User Information </h1> 
-    <p> <a href='/hangman/home'> Go back </a></p>
-    <h3> {{ user.first_name }} {{ user.last_name }} </h3>
-    <h3> Total words contributed: {{ word_count }} </h3> 
-    <h3> Words submitted </h3>
-    {% for word in words %}
-        <ul>
-            <li> {{ word.word }} : {{ word.hint}} </li>
-        </ul>
-    {% endfor %}
-</body>
+    <div class='nav_container'>
+        <h1 id='headline'> User Information </h1> 
+        <p id='go_backbutton'> <a href='/hangman/home'> Go back </a></p>
+    </div>
+    <div class='content_container'>
+        <p id='name'> Name: {{ user.first_name }} {{ user.last_name }} </p>
+        <p id='total_words'> Total words contributed: {{ word_count }} </p> 
+        <h3 id='words_submitted'> Words submitted </h3>
+        {% for word in words %}
+            <ul>
+                <li id='words'> {{ word.word }} : {{ word.hint}} </li>
+            </ul>
+        {% endfor %}
+    </div>
+    </body>
+    </div>
 </html>

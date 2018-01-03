@@ -3,7 +3,94 @@
     padding: 0px;
 }
 
-#hangman_art h1 {
+#hangman_art {
     font-family: monospace;
     white-space: pre;
+}
+
+#navbar_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#title, #goback_button, #playagain_button {
+    padding: 10px;
+}
+
+#title {
+    font-size: 50px;
+}
+
+#button_container {
+    display: flex;
+}
+
+#goback_button, #playagain_button  {
+    font-size: 25px;
+    vertical-align: bottom;
+}
+
+#hangman_container {
+    display: flex;
+    flex-direction: column;
+}
+
+#hangman_container * {
+    line-height: 150%;
+}
+
+.flex_container {
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    font-size: 25px;
+}
+
+input {
+    height: 21px;
+    vertical-align: text-bottom;
+}
+
+p {
+    font-size: 25px;
+}
+
+#guess_button {
+    font-size: 25px;
+    border-radius: 10px;
+    width: 170px;
+    vertical-align: inherit;
+}
+
+#art_container {
+    display: flex;
+    width: 700px;
+    border: 5px solid gray;
+    flex-direction: column;
+    margin-top: 20px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#hangman_tries {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#hangman_art {
+    margin: 0 auto;
+}
+
+ul {
+    list-style-position: inside;
+}
+
+#message_container {
+    margin: 0 auto;
+    margin-top: 10px;
+    color: red;
+    font-size: 25px;
+    margin-bottom: 10px;
 }
