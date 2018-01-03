@@ -11,3 +11,53 @@
 #navbar_container h3 {
     padding: 10px;
 }
+
+#title {
+    text-align: center;
+}
+
+.item_containers {
+    width: 700px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+input {
+    margin-left: 20px;
+    flex: 1;
+}
+
+label {
+    height: 21px;
+    line-height: 21px;
+    font-size: 14px;
+    flex: 0 1 auto;
+    margin-left: 20px;
+}
+
+.flex_container {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#new_wordbutton {
+    margin-left: 20px;
+}
+
+.parent_containers {
+    display: flex;
+    justify-content: center;
+}
+
+.game_containerbutton {
+    justify-content: flex-end;
+}
+
+

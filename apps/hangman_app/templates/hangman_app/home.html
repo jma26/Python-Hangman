@@ -10,25 +10,34 @@
         <h3> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
         <h3> <a href="/logout"> Logout </a> </h3> 
     </div>
-    <h1> Hangman: The Game </h1>
-    <form action='/hangman/new_word/{{ user.id }}' method='POST'>
-        {% csrf_token %}
-        <label for="new_word"> Add a new word: </label>
-        <input type="text" name="new_word">
-        <label for="hint"> Hint: </label> 
-        <input type="text" name="hint">
-        <button> Add new word </button>
-    </form>
-
-    <form action='/hangman/game' method='GET'>
-        {% csrf_token %}
-        <button> Start Game </button>
-    </form>
-    {% if messages %}
-        <ul> 
-        {% for message in messages %}
-            <li> {{ message }}  </li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    <h1 id='title'> Hangman: The Game </h1>
+    <div class='flex_container'>
+        <div class='parent_containers'>
+            <form action='/hangman/new_word/{{ user.id }}' method='POST'>
+                {% csrf_token %}
+                <div class='item_containers'>
+                    <label for="new_word"> New word: </label>
+                    <input type="text" name="new_word">
+                    <label for="hint"> Hint: </label> 
+                    <input type="text" name="hint">
+                    <button id='new_wordbutton'> Add new word </button>
+                </div>
+            </form>
+        </div>
+        <div class='parent_containers'>
+            <div class='item_containers game_containerbutton'>
+                <form action='/hangman/game' method='GET'>
+                    {% csrf_token %}
+                    <button> Start Game </button>
+                </form>
+            </div>
+        </div>
+        {% if messages %}
+            <ul> 
+            {% for message in messages %}
+                <li> {{ message }}  </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 </html>
