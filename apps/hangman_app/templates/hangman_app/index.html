@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'hangman_app/css/index.css'%}">
 </head>
 <body>
-    <h1 id="headline"> Welcome to Hangman </h1> 
-    <h2 id="directions"> Please log in or register below </h2>
+    <div id='navbar_container'>
+        <h1 id="headline"> Welcome to Hangman </h1> 
+        <h2 id="directions"> Please log in or register below </h2>
+    </div>
     <div class="flex_container">
-        <div class="parent_container">
+        <div class="parent_container parent_1">
             <form action='/user/registration' method='POST'>
                 {% csrf_token %}
                 <h1> Registration </h1>
@@ -21,26 +23,26 @@
                     <label for="last_name"> Last Name: </label>
                     <input type="text" name="last_name">
                 </div>
-               <div class='item_containers'>
+                <div class='item_containers'>
                     <label for="alias"> Alias: </label>
                     <input type="text" name="alias">
-               </div>
-               <div class='item_containers'>
+                </div>
+                <div class='item_containers'>
                     <label for="email"> Email: </label>
                     <input type="text" name="email">
-               </div>
-               <div class='item_containers'>
+                </div>
+                <div class='item_containers'>
                     <label for="password"> Password: </label>
                     <input type="password" name="password">
-               </div>
-               <div class='item_containers'>
-                    <label for="passwordcf"> Confirm password: </label>
-                    <input type="password" name="passwordcf">       
-               </div>
-                <button> Register </button>
+                </div>
+                <div class='item_containers'>
+                    <label for="passwordcf"> Confirm PW: </label>
+                    <input type="password" name="passwordcf">
+                </div>
+                <button id='register_button'> Register </button>
             </form>
         </div>
-        <div class="parent_container parent_1">
+        <div class="parent_container parent_2">
             <form action='/user/login' method='POST'>
                 {% csrf_token %}
                 <h1> Login </h1>
@@ -52,18 +54,18 @@
                     <label for="password"> Password: </label>
                     <input type="password" name="password">
                 </div>
-                <button> Login </button> 
+                <button id='login_button'> Login </button> 
             </form>
+            <div id="message_container">
+                {% if messages %}
+                    <ul> 
+                    {% for message in messages %}
+                        <li id='messages'> {{ message }}  </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}    
+            </div>
         </div>
     </div>
-    <div id="message_container">
-            {% if messages %}
-                <ul> 
-                {% for message in messages %}
-                    <li id='messages'> {{ message }}  </li>
-                {% endfor %}
-                </ul>
-            {% endif %}    
-            </div>
 </body>
 </html>
