@@ -8,36 +8,36 @@
 <body>
     <div id="navbar_container">
         <h3 id='welcome_sign'> Welcome <a href='/hangman/user/{{ user.id }}'> {{ user.first_name }} {{ user.last_name }} </a> </h3>
-        <p id='logout'> <a href="/logout"> Logout </a> </p> 
+        <h3 id='logout'> <a href="/logout"> Logout </a> </h3> 
     </div>
     <h1 id='title'> Hangman: The Game </h1>
     <div class='flex_container'>
-        <div class='parent_containers'>
+        <div class='parent_containers parent_1'>
             <form action='/hangman/new_word/{{ user.id }}' method='POST'>
                 {% csrf_token %}
                 <div class='item_containers'>
                     <label for="new_word"> New word: </label>
                     <input type="text" name="new_word">
+                </div>
+                <div class='item_containers item_1'>
                     <label for="hint"> Hint: </label> 
                     <input type="text" name="hint">
-                    <button id='new_wordbutton'> Add new word </button>
                 </div>
+                <button id='new_wordbutton'> Add new word </button>
+            </form>
+            <form action='/hangman/game' method='GET'>
+                {% csrf_token %}
+                <button id='game_button'> Start Game </button>
             </form>
         </div>
-        <div class='parent_containers'>
-            <div class='item_containers game_containerbutton'>
-                <form action='/hangman/game' method='GET'>
-                    {% csrf_token %}
-                    <button id='game_button'> Start Game </button>
-                </form>
-            </div>
+        <div class='parent_containers message_1'>
+            {% if messages %}
+                <ul> 
+                {% for message in messages %}
+                    <li class='messages'> {{ message }}  </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
         </div>
-        {% if messages %}
-            <ul> 
-            {% for message in messages %}
-                <li> {{ message }}  </li>
-            {% endfor %}
-            </ul>
-        {% endif %}
     </div>
 </html>

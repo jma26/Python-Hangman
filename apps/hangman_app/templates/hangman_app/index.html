@@ -41,11 +41,9 @@
                 </div>
                 <button id='register_button'> Register </button>
             </form>
-        </div>
-        <div class="parent_container parent_2">
             <form action='/user/login' method='POST'>
                 {% csrf_token %}
-                <h1> Login </h1>
+                <h1 id='login_headline'> Login </h1>
                 <div class='item_containers'>
                     <label for="email"> Email: </label>
                     <input type="text" name="email">
@@ -56,15 +54,15 @@
                 </div>
                 <button id='login_button'> Login </button> 
             </form>
-            <div id="message_container">
-                {% if messages %}
-                    <ul> 
-                    {% for message in messages %}
-                        <li id='messages'> {{ message }}  </li>
-                    {% endfor %}
-                    </ul>
-                {% endif %}    
-            </div>
+        </div>
+        <div class="parent_container message_1">
+        {% if messages %}
+            <ul> 
+            {% for message in messages %}
+                <li id='messages'> {{ message }}  </li>
+            {% endfor %}
+            </ul>
+        {% endif %}    
         </div>
     </div>
 </body>

@@ -18,19 +18,20 @@
 }
 
 .flex_container {
-    border: 3px solid gray;
+    border-top: 3px solid gray;
+    border-bottom: 3px solid gray;
     display: flex;
-    flex-direction: column;
     background-image: url('../img/hangman-gif.gif');
-    background-position: left top;
-    background-size: contain;
-    background-repeat: round;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #D0E4FF;
 }
 
 input {
     flex: 1;
     margin-left: 20px;
     margin-top: 10px;
+    width: 150px;
 }
 
 label {
@@ -48,20 +49,22 @@ label {
 }
 
 #register_button, #login_button {
-    margin-top: 10px;
+    margin-top: 5px;
     border-radius: 10px;
     font-size: 22px;
 }
 
-#messages {
-    color: red;
-    font-size: 20px;
+#login_headline {
+    margin-top: 10px;
 }
 
-#message_container {
-    align-self: center;
+#messages {
+    color: red;
+    font-size: 25px;
+}
+
+.message_1 {
     width: 250px;
-    margin: 0 auto;
     margin-top: 10px;
 }
 
@@ -69,16 +72,6 @@ label {
     margin-top: 10px;
     padding: 5px;
     margin-bottom: 10px;
-}
-
-.parent_1 {
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}
-
-.parent_2 {
-    border-top: 2px solid gray;
 }
 
 
