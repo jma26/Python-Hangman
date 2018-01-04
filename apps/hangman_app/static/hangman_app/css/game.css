@@ -11,6 +11,16 @@
 #navbar_container {
     display: flex;
     justify-content: space-between;
+    background-color: #FF9900;
+}
+
+a {
+    text-decoration: none;
+    color: #097054;
+}
+
+a:hover {
+    color: #6599FF;
 }
 
 #title, #goback_button, #playagain_button {
@@ -19,6 +29,7 @@
 
 #title {
     font-size: 50px;
+    color: #097054;
 }
 
 #button_container {
@@ -27,7 +38,6 @@
 
 #goback_button, #playagain_button  {
     font-size: 25px;
-    vertical-align: bottom;
 }
 
 #hangman_container {
@@ -42,6 +52,7 @@
 .flex_container {
     display: flex;
     justify-content: center;
+    background-color: #6599FF;
 }
 
 label {
@@ -67,11 +78,12 @@ p {
 #art_container {
     display: flex;
     width: 700px;
-    border: 5px solid gray;
+    border: 5px solid #FFDE00;
     flex-direction: column;
     margin-top: 20px;
     margin: 0 auto;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #hangman_tries {
@@ -85,12 +97,15 @@ p {
 
 ul {
     list-style-position: inside;
+    list-style-type: none;
 }
 
 #message_container {
     margin: 0 auto;
+    text-align: center;
     margin-top: 10px;
     color: red;
     font-size: 25px;
     margin-bottom: 10px;
+    width: 550px;
 }

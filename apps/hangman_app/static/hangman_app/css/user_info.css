@@ -6,6 +6,7 @@
 .nav_container {
     display: flex;
     justify-content: space-between;
+    background-color: #FF9900;
 }
 
 #headline, #go_backbutton {
@@ -13,11 +14,14 @@
 }
 
 #headline {
-    font-size: 50px;
+    color: #097054;
+    font-size: 25px;
 }
+
 .content_container {
     display: flex;
     flex-direction: column;
+    background-color: #6599FF;
 }
 
 #name, #words, #go_backbutton, #total_words {
@@ -28,8 +32,17 @@
     margin-left: 20px;
 }
 
+#name {
+    margin-top: 10px;
+}
+
+#words {
+    margin-bottom: 5px;
+}
+
 #words_submitted {
-    font-size: 45px;
+    font-size: 50px;
+    color:  #097054;
 }
 
 ul {

@@ -6,6 +6,7 @@
 #directions {
     text-align: center;
     color: #097054;
+    font-size: 25px;
 }
 
 #navbar_container {
@@ -15,6 +16,7 @@
 #headline {
     margin-left: 10px;
     color: #097054;
+    font-size: 50px;
 }
 
 .flex_container {
